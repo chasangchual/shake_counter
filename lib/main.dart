@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shake_counter/shake_counter_controller.dart';
 
-void main() {
+import 'main_binding.dart';
+
+void main() async {
   runApp(const ShakeCounterApp());
 }
 
@@ -10,8 +13,9 @@ class ShakeCounterApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      home: MainView(),
+    return GetMaterialApp(
+      initialBinding: AppBinding(),
+      home: const MainView(),
     );
   }
 }
@@ -35,21 +39,23 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    return SizedBox(
       height: double.infinity,
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            '0',
-            style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
+          Obx(() {
+            return Text(
+              ShakeCounterController.to.count.toString(),
+              style: const TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+            );
+          }),
+          const SizedBox(
             height: 10,
           ),
-          Text('Shake it !!'),
-          SizedBox(
+          const Text('Shake it !!'),
+          const SizedBox(
             height: 120,
           ),
         ],
